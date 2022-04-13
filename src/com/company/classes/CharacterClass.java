@@ -4,6 +4,7 @@ import com.company.Constants;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 public abstract class CharacterClass implements BaseClass {
     public static int[][] occupiedCells = new int[Constants.WINDOW_WIDTH][Constants.WINDOW_HEIGHT];
@@ -39,8 +40,7 @@ public abstract class CharacterClass implements BaseClass {
             this.healthPoints = 0;
         } else if (healthPoints > this.maxHealthPoints) {
             this.healthPoints = this.maxHealthPoints;
-        }
-        else {
+        } else {
             this.healthPoints = healthPoints;
         }
     }
@@ -50,8 +50,7 @@ public abstract class CharacterClass implements BaseClass {
             this.manaPoints = 0;
         } else if (manaPoints > this.maxManaPoints) {
             this.manaPoints = this.maxManaPoints;
-        }
-        else {
+        } else {
             this.manaPoints = manaPoints;
         }
     }
@@ -119,11 +118,14 @@ public abstract class CharacterClass implements BaseClass {
 
     public void attack(CharacterClass attackedPlayer) {
         attackedPlayer.reduceHealth(this.attackAmount);
+        if (this.playerClass == "healer") {
+            restoreHealth(10);
+        }
     }
 
     @Override
     public void restoreHealth(int amount) {
-        setHealthPoints(this.getMaxHealthPoints() + amount);
+        setHealthPoints(this.getHealthPoints() + amount);
     }
 
     @Override
@@ -224,6 +226,13 @@ public abstract class CharacterClass implements BaseClass {
     }
 
     private void reduceHealth(int amount) {
+        Random xy = new Random();
         setHealthPoints(this.healthPoints - amount);
+        if (this.getHealthPoints() == 0) {
+            System.out.println("zginales xd");
+            this.x = xy.nextInt(321);
+            this.y = xy.nextInt(321);
+            this.healthPoints = maxHealthPoints;
+        }
     }
 }
