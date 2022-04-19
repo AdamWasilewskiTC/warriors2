@@ -226,13 +226,22 @@ public abstract class CharacterClass implements BaseClass {
     }
 
     private void reduceHealth(int amount) {
-        Random xy = new Random();
+
         setHealthPoints(this.healthPoints - amount);
         if (this.getHealthPoints() == 0) {
-            System.out.println("zginales xd");
-            this.x = xy.nextInt(321);
-            this.y = xy.nextInt(321);
+            System.out.println(this.name + " zginales xd");
+//            int[] num = new int[] {0,40,80,120,160,200,320};
+//            int x = new Random().nextInt(num.length);
+//            this.x = num[x];
+//            int y = new Random().nextInt(num.length);
+//            this.y = num[y];
             this.healthPoints = maxHealthPoints;
         }
+//        if (this.getHealthPoints() == 0) {
+//            System.out.println("zginales xd");
+//            this.x = xy.nextInt(321);
+//            this.y = xy.nextInt(321);
+//            this.healthPoints = maxHealthPoints;
+//        }
     }
 }
