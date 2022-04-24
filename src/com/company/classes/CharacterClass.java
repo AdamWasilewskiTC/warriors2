@@ -121,6 +121,26 @@ public abstract class CharacterClass implements BaseClass {
         if (this.playerClass == "healer") {
             restoreHealth(10);
         }
+        System.out.println(this.playerClass + "  attacked " + attackedPlayer.playerClass + " for " + this.attackAmount);
+        if(attackedPlayer.getHealthPoints() == 0){
+            System.out.println(attackedPlayer.playerClass + " died");
+            attackedPlayer.setImage(null);
+            occupiedCells[attackedPlayer.getX()][attackedPlayer.getY()] = 0;
+            attackedPlayer.setAttackAmount(0);
+            attackedPlayer.setMaxHealthPoints(0);
+            playerCount--;
+        }
+        if(playerCount ==  1){
+            System.out.println("Player " + this.name + " Won!");
+            new java.util.Timer().schedule(
+                    new java.util.TimerTask() {
+                        @Override
+                        public void run() {
+                            Runtime.getRuntime().exit(0);
+                        }
+                    }, 1000
+            );
+        }
     }
 
     @Override
@@ -228,20 +248,26 @@ public abstract class CharacterClass implements BaseClass {
     private void reduceHealth(int amount) {
 
         setHealthPoints(this.healthPoints - amount);
-        if (this.getHealthPoints() == 0) {
-            System.out.println(this.name + " zginales xd");
-//            int[] num = new int[] {0,40,80,120,160,200,320};
-//            int x = new Random().nextInt(num.length);
-//            this.x = num[x];
-//            int y = new Random().nextInt(num.length);
-//            this.y = num[y];
-            this.healthPoints = maxHealthPoints;
-        }
 //        if (this.getHealthPoints() == 0) {
-//            System.out.println("zginales xd");
-//            this.x = xy.nextInt(321);
-//            this.y = xy.nextInt(321);
-//            this.healthPoints = maxHealthPoints;
+//            System.out.println(this.name + " zginales xd");
+//            this.setImage(null);
+//            occupiedCells[this.getX()][this.getY()] = 0;
+//            this.setAttackAmount(0);
+//            this.setMaxHealthPoints(0);
+//            playerCount--;
+//        }
+//        if (playerCount == 1) {
+//            System.out.println("Koniec gry!");
+//            new java.util.Timer().schedule(
+//                    new java.util.TimerTask() {
+//                        @Override
+//                        public void run() {
+//                            Runtime.getRuntime().exit(0);
+//                        }
+//                    }, 1000
+//            );
 //        }
     }
+
 }
+
