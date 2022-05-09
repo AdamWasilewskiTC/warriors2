@@ -1,48 +1,45 @@
 package com.company.classes.characters;
 
-import com.company.Constants;
-import com.company.classes.AttackType;
 import com.company.classes.CharacterClass;
 
 public class Mage  extends CharacterClass {
-    public Mage(String name, int x, int y, int leftKey, int rightKey, int upKey, int downKey, int leftAttackKey, int rightAttackKey) {
-        super(name, x, y, leftKey, rightKey, upKey, downKey, leftAttackKey, rightAttackKey);
-
-        this.setAttackType(AttackType.MAGICAL_RANGED);
+    public Mage(String name, int x, int y, int leftKey, int rightKey, int upKey, int downKey, int leftAttackKey, int rightAttackKey, int abilityKey) {
+        super(name, x, y, leftKey, rightKey, upKey, downKey, leftAttackKey, rightAttackKey,2,2, abilityKey);
+        this.setAttackAmount(100);
         this.setMaxHealthPoints(300);
-        this.setManaPoints(300);
-        this.playerClass = "mage";
-        this.uploadImage();
-        this.setAttackAmount(70);
+        setHealthPoints(300);
+        this.className = "Mage";
+        /*this.setLevel(1);
+        this.setMaxHealthPoints(1000);
+        this.setHealthPoints(1000);
+        this.setManaPoints(200);
+        this.setMaxManaPoints(200);
+        this.setAttackType(AttackType.PHYSICAL);
+        this.setAttackAmount(5);
+        this.setName(name);*/
+
+        /*this.setX(300);
+        this.setY(300);*/
+        this.uploadImage("images/mage/base.png", "images/mage/left.png", "images/mage/right.png");
+
+
     }
-    @Override
+
     public void left() {
-        int newPositionX = this.getX() >= Constants.CHARACTER_IMG_WIDTH ? this.getX() - Constants.CHARACTER_IMG_WIDTH : Constants.MAX_RIGHT_POSITION;
-        tryChangePosition(newPositionX, getY());
-
+        int newPositionX = this.getX() >= 40 ?  this.getX() - 40 : 320;
+        tryChangePosition(newPositionX, this.getY());
     }
-
-    @Override
     public void right() {
-        int newPositionX = this.getX() < Constants.MAX_RIGHT_POSITION ? this.getX() + Constants.CHARACTER_IMG_WIDTH : 0;
-        tryChangePosition(newPositionX, getY());
-    }
+        int newPositionX = this.getX() < 320 ?  this.getX() + 40 : 0;
+        tryChangePosition(newPositionX, this.getY());
 
-    @Override
+    }
     public void up() {
-        int newPositionY = this.getY() < Constants.CHARACTER_IMG_HEIGHT ? Constants.MAX_RIGHT_POSITION : this.getY() - Constants.CHARACTER_IMG_HEIGHT;
-        tryChangePosition(getX(), newPositionY);
+        int newPositionY = this.getY() >= 80 ?  this.getY() - 80 : 320;
+        tryChangePosition(this.getX(), newPositionY);
     }
-
-    @Override
     public void down() {
-        int newPositionY = this.getY() < Constants.MAX_RIGHT_POSITION ? this.getY() + Constants.CHARACTER_IMG_HEIGHT : 0;
-        tryChangePosition(getX(), newPositionY);
-    }
-    public void leftAttack() {
-
-    }
-    public void rightAttack() {
-
+        int newPositionY = this.getY() < 320 ?  this.getY() + 80 : 0;
+        tryChangePosition(this.getX(), newPositionY);
     }
 }

@@ -1,55 +1,70 @@
 package com.company.classes.characters;
 
-import com.company.Constants;
-import com.company.classes.AttackType;
 import com.company.classes.CharacterClass;
 
-public class Healer  extends CharacterClass {
-    public Healer(String name, int x, int y, int leftKey, int rightKey, int upKey, int downKey, int leftAttackKey, int rightAttackKey) {
-        super(name, x, y, leftKey, rightKey, upKey, downKey, leftAttackKey, rightAttackKey);
-        this.setLevel(1);
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class Healer extends CharacterClass {
+    public Healer(String name, int x, int y, int leftKey, int rightKey, int upKey, int downKey, int leftAttackKey, int rightAttackKey, int abilityKey) {
+        super(name, x, y, leftKey, rightKey, upKey, downKey, leftAttackKey, rightAttackKey,1,1, abilityKey);
+        this.setAttackAmount(50);
+        this.setMaxHealthPoints(500);
+        setHealthPoints(500);
+        this.className = "Warior";
+        /*this.setLevel(1);
         this.setMaxHealthPoints(1000);
         this.setHealthPoints(1000);
         this.setManaPoints(200);
         this.setMaxManaPoints(200);
         this.setAttackType(AttackType.PHYSICAL);
         this.setAttackAmount(5);
-        this.setName(name);
-        this.playerClass="healer";
-        this.uploadImage();
+        this.setName(name);*/
 
-
+        /*this.setX(0);
+        this.setY(0);*/
+        this.uploadImage("images/healer/base.png", "images/healer/left.png", "images/healer/right.png");
     }
 
-    @Override
     public void left() {
-        int newPositionX = this.getX() >= Constants.CHARACTER_IMG_WIDTH ? this.getX() - Constants.CHARACTER_IMG_WIDTH : Constants.MAX_RIGHT_POSITION;
-        tryChangePosition(newPositionX, getY());
-
+        int newPositionX = this.getX() > 40 ?  this.getX() - 40 : 0;
+        tryChangePosition(newPositionX, this.getY());
     }
-
-    @Override
     public void right() {
-        int newPositionX = this.getX() < Constants.MAX_RIGHT_POSITION ? this.getX() + Constants.CHARACTER_IMG_WIDTH : 0;
-        tryChangePosition(newPositionX, getY());
+        int newPositionX = this.getX() < 320 ?  this.getX() + 40 : 320;
+        tryChangePosition(newPositionX, this.getY());
     }
-
-    @Override
     public void up() {
-        int newPositionY = this.getY() < Constants.CHARACTER_IMG_HEIGHT ? Constants.MAX_RIGHT_POSITION : this.getY() - Constants.CHARACTER_IMG_HEIGHT;
-        tryChangePosition(getX(), newPositionY);
+        int newPositionY = this.getY() >= 80 ?  this.getY() - 80 : 0;
+        System.out.println(newPositionY);
+        tryChangePosition(this.getX(), newPositionY);
+    }
+    public void down() {
+        System.out.println("before button" + getY());//40???
+        int newPositionY = this.getY() < 320 ?  this.getY() + 80 : 320;
+
+        tryChangePosition(this.getX(), newPositionY);
+        System.out.println("after button" + newPositionY);
     }
 
     @Override
-    public void down() {
-        int newPositionY = this.getY() < Constants.MAX_RIGHT_POSITION ? this.getY() + Constants.CHARACTER_IMG_HEIGHT : 0;
-        tryChangePosition(getX(), newPositionY);
+    public void ability() {
+        if (!onCooldown) {
+            this.restoreHealth(100);
+            this.onCooldown = true;
+            Healer thisPlayer = this;
+            Timer timer = new Timer();
+            TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    thisPlayer.endCooldown();
+                }
+            };
+            timer.schedule(task, 5000);
+        }
     }
 
-    public void leftAttack() {
-
-    }
-    public void rightAttack() {
-
+    public void endCooldown() {
+        this.onCooldown = false;
     }
 }
