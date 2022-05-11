@@ -3,8 +3,8 @@ package com.company;
 import com.company.classes.ArenaBase;
 import com.company.classes.CharacterClass;
 import com.company.classes.MonsterClass;
-import com.company.classes.monsters.Bat;
-import com.company.classes.monsters.Zombie;
+import com.company.classes.monsters.RetardedBat;
+import com.company.classes.monsters.Goblin;
 
 public class Team {
     private CharacterClass[] teamMembers;
@@ -43,7 +43,7 @@ public class Team {
 
     public void start() {
         MonsterClass[] monsters = new MonsterClass[999];
-        monsters[i] = new Bat(this.teamMembers);
+        monsters[i] = new RetardedBat(this.teamMembers);
         MainWindow mw = new MainWindow(375, 438, this, monsters);
         this.spawnMonsters();
     }
@@ -52,7 +52,7 @@ public class Team {
         Team thisTeam = this;
         if (MonsterClass.currentMonsters <= 3) {
             i++;
-            GameField.monsters[i] = new Zombie(this.teamMembers);
+            GameField.monsters[i] = new Goblin(this.teamMembers);
             new java.util.Timer().schedule(
                     new java.util.TimerTask() {
                         @Override

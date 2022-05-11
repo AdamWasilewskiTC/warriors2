@@ -5,9 +5,9 @@ import com.company.classes.MonsterClass;
 
 import javax.swing.*;
 
-public class Bat extends MonsterClass {
+public class RetardedBat extends MonsterClass {
 
-    public Bat(CharacterClass[] players) {
+    public RetardedBat(CharacterClass[] players) {
         super(players);
         this.speed = 1000;
         this.attackAmount = 100;

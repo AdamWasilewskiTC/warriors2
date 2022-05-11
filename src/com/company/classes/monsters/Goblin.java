@@ -5,9 +5,9 @@ import com.company.classes.MonsterClass;
 
 import javax.swing.*;
 
-public class Zombie extends MonsterClass {
+public class Goblin extends MonsterClass {
 
-    public Zombie(CharacterClass[] players) {
+    public Goblin(CharacterClass[] players) {
         super(players);
         this.speed = 2000;
         this.attackAmount = 100;
